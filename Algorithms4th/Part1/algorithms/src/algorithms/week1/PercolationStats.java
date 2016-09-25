@@ -1,4 +1,6 @@
+package algorithms.week1;
 
+import java.lang.IllegalArgumentException;
 import java.util.ArrayList;
 import java.util.List;
 

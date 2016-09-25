@@ -1,3 +1,4 @@
+package algorithms.week1;
 
 /**
  * Created by Ming on 16/9/10.
