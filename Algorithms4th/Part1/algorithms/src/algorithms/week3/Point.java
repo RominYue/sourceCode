@@ -59,7 +59,7 @@ public class Point implements Comparable<Point> {
         }else if(x == that.x){
             slope = Double.POSITIVE_INFINITY;
         }else if(y == that.y){
-            slope = 0.0;
+            slope = +0.0;
         }else{
             slope = (that.y - y)*1.0/(that.x - x);
         }
@@ -81,6 +81,7 @@ public class Point implements Comparable<Point> {
     public int compareTo(Point that) {
         if(y == that.y){
             if(x < that.x)return -1;
+            if(x == that.x)return 0;
             return 1;
         }else{
             if(y < that.y)return -1;
@@ -99,12 +100,15 @@ public class Point implements Comparable<Point> {
     }
 
     private class SlopeOrder implements Comparator<Point> {
-        @Override
         public int compare(Point p1, Point p2){
             double slope1 = slopeTo(p1);
             double slope2 = slopeTo(p2);
-            if(slope1 < slope2)return 1;
-            return -1;
+            if(slope1 < slope2)return -1;
+            else if(slope1 == slope2)
+            {
+                return 0;
+            }
+            return 1;
         }
     }
 
