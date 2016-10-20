@@ -3,3 +3,8 @@
 *.out
 .idea
 *.xml
+*.xsl
+*.class
+*.cache
+*/out
+*/export
