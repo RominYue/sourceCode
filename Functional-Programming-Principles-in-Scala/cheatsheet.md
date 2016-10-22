@@ -39,7 +39,7 @@
 	printIn(greet(0)) // greet.apply(0)
     数组也是对象，赋值和打印其实都是调用对象的方法
 
-###List (Immutable Seq with same type)
+####List (Immutable Seq with same type)
 	val a: List[Int] = List(1,2,3)
 	val b = List(3,4)
 	val c = a ::: b (concat) (1,2,3,3,4)
@@ -47,13 +47,13 @@
 	val e = 1 :: 2 :: 3 :: Nil  //Nil is a empty list
 	::相当于调用list的方法，只不过操作数在左边
 
-###Turple (Immutable Seq with diff types)
+####Turple (Immutable Seq with diff types)
 
 	val a = Turple(1, "hello") //type inference is Tuple2[Int, String]
 	a._1   //1
     a._2   //"hello"
 
-###Set and Map
+####Set and Map
 	Set和Map分为immutable 和 mutable两种，分别在scala.collection.mutable 和 scala.collection.immutable中
     val a = Set(1,2) // 默认immutable
 	val b = HashSet(1,2)  //需显示import scala.collection.immutable.HashSet
@@ -178,3 +178,38 @@
  	   Question: 为什么在REPL中可以连续定义 val a = 1?
 	   A: You can do this because conceptually the interpreter creates a new nested scope for each
 		  new statement you type in.
+
+###Chapter 7 Fuctions and Closure
+	Note: 函数加括号其实是语法糖，是Function.apply()方法在实际调用
+	(1)Local functions
+	   scala可以在函数(方法)内部定义多个函数，做helper function，可以共享最外层函数的参数
+	(2)First Class Functions
+	   <1> function literal,可以看成java里面的匿名类，继承自Function[T1, T2....]，runtime的阶段called function values
+	       synax： (x: Int, y: Int) => {function body}
+	   <2> function literal 在某些情况下可以省略一些东西，比如在集合里，就可以省略类型参数等等
+	(3)placeholder synax
+       Note: use '_' 来当做占位符,一个占位符就代表一个参数
+	   example: coll.filter(x => x > 0)  === coll.filter(_ > 0)
+                val f = (x: Int, y: Int) => x + y ==  (_: Int) + (_: Int)
+
+    (4)partially applied function（偏函数）
+	   Note: 这里的占位符'_'可以代表整个/部分函数参数
+	   example: 
+		  def sum(a: Int, b: Int, c: Int) = a + b + c
+		  val a = sum _   -->  a(1,2,3) = 6
+          val b = sum(1, _: Int, 3) --> b(2) = 6, b(5) = 9
+    (5)Closure
+	   函数body中包含了free variable，那么这个free variable不在stack里，将会在heap中一直保存
+	(6)Special Function Calls Forms
+	   <1>Repeated parameters
+          变长参数
+		  def echo(args: String*) = {for (arg <- args) println(arg)} //可接受任意长度的参数
+		  Note: 将Array[String]传进去的时候, echo(arr: _*)
+       <2>Named arguments
+		  speed(100, 10)
+          speed(distance = 100, time = 10)
+	   <3>Default parameter values
+		  def printTime(out: java.io.PrintStream = Console.out) = {}
+	(7)Tail Recursion
+       尾递归优化
+       
