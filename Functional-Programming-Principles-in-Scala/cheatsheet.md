@@ -212,4 +212,11 @@
 		  def printTime(out: java.io.PrintStream = Console.out) = {}
 	(7)Tail Recursion
        尾递归优化
+
+###Chapter 8 Control Abstraction
+	Note: highter order functions,将函数当做参数来抽象
+	Note: currying柯里化，函数名后带着多个参数列表
+	Note: Call-by-name fucntion
+
+###Chapter 9 Composition and Inheritance
        
