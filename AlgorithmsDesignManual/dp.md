@@ -25,10 +25,12 @@ Answer:
 ###3. String interleaving (String Sequence)
 Question:
 
-	Suppose you are given three strings of characters: X, Y , and Z, where |X| = n, |Y | = m, and |Z| = n + m.
-	Z is said to be a shuffle of X and Y iff Z can be formed by interleaving the characters from X and Y in a way 
-	that maintains the leftto-right ordering of the characters from each string. 
-	You should determine whether Z is a shuffle of X and Y .
+	Suppose you are given three strings of characters: X, Y , and Z, 
+	where |X| = n, |Y | = m, and |Z| = n + m. Z is said to be a shuffle 
+	of X and Y iff Z can be formed by interleaving the characters from 
+	X and Y in a way that maintains the leftto-right ordering of the 
+	characters from each string. You should determine whether Z is a 
+	shuffle of X and Y .
 
 	Example:
 	cchocohilaptes is a shuffle of chocolate and chips, but chocochilatspe is not.
@@ -49,7 +51,24 @@ Answer:
       
       确定求值顺序，可写迭代版本
 
-###4. Edit Distance (String Sequence)
+###3. Distinct Subsequences (String Sequence)
+Question:
+
+	给定字符串S，T， 问T是S的subsequence的个数
+	比如: S = "rabbbit", T = "rabbit", 答案是3， T出现在S中3次
+Answer:
+
+	状态： f(i,j)表示S[1...i], T[1...j]时的结果
+	考虑 S的最后一个字符S[i], 与T的最后一个字符T[j],
+	状态转移：
+	if(S[i] != T[j]) f[i,j] = f[i-1,j]
+	if(S[i] == T[j]) f[i,j] = f[i-1,j-1] + f[i-1,j]
+
+	边界条件：f[i,0] = 1, f[0,j] = 0
+	确定求值顺序，即可求解
+	
+
+###3. Edit Distance (String Sequence)
 Question:
 
 	将A串变为B串所需最少的操作数/cost。 允许的操作：
@@ -176,6 +195,15 @@ Answer:
 		   将 j-ith row压缩成一维，然后求其最大连续子段和，这样，扫完每一排，就可以得到以这一排为底
 		   的最大值，然后取大者即可。
 	2.时间复杂度：O(n3) 
+
+###11. 最大连续子段积
+Question:
+
+	最大连续子段积
+Answer:
+
+	状态：dp[i][0]表示以i结尾的正数最大值
+		 dp[i][1]表示以i结尾的负数最小值
 
 ###12. Largest Rectangle in a Histogram (最长连续递增or递减子段) (HDU 1506)
 Question:
