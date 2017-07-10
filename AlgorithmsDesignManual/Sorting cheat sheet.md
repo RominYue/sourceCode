@@ -1,5 +1,7 @@
 ##Sorting cheat sheet
+
 ###基础知识
+
 	1.selection sort
 	  每次选出最小值，放在当前位置
 	  
@@ -91,18 +93,54 @@
       }
 	5.quick sort
 	  (1) partition
+          可以采用辅助数组将小于pivot的元素移到左边，大于pivot的元素移到右边
+          或者，采用两个指针，同时扫描，遇到不符合的互相交换
 	  (2) sort 2 subarray
       void quick_sort(vector<int>& a, int n, int l, int r)
       {
 	      if(l >= r) return;
-          
+          int pos = partition(a, l, r);
+          quick_sort(a, n, l, pos-1);
+          quick_sort(a, n, pos+1, r);
       }
+
+      int partition(vector<int>& a, int l, int r)
+      {
+           int i = l+1, j = r;
+           int v = a[l];
+           while(i < j){
+                while(a[i] <= v){
+                    if(i == r)break;
+                    i++;
+                }
+                while(a[j] > v){
+                    if(j == l)break;
+                    j--;
+                }
+                swap(a[i], a[j]);
+          }
+          swap(a[l], a[j]);
+          return j;
+      }
+
 	6.heap sort
+      heap: 对于任意一个节点，都比他的左节点和右节点大
+      用数组，完全二叉树实现
+      heap的操作
+      (1)建堆
+      (2)上浮
+      (3)下沉
+      (4)插入
+      (5)删除
+      
+
+      heap sort
 	  (1) make heap
 	  (2) get heap top item -> delete -> adjust -> get...
 	7.radix sort
 
 ###分析各算法的时间复杂度，空间复杂度， 排序的稳定性
+
 	1. 每个sorting算法的 worst case, best case, 比较次数？
 	2. 数据的分布对算法有什么影响？
 	3. 重复的key值对算法有什么影响？
@@ -110,6 +148,7 @@
 	   选择排序、快速排序、希尔排序、堆排序不是稳定的排序算法，而冒泡排序、插入排序、归并排序和基数排序是稳定的排序算法
 
 ###Imporvments
+
 	1.MergeSort 的递归非递归写法？
 	2.MergeSort 有哪一些可以改进的地方？改进的原因是啥？
     3.QuickSort 的递归非递归写法？
