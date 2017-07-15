@@ -137,6 +137,84 @@
       heap sort
 	  (1) make heap
 	  (2) get heap top item -> delete -> adjust -> get...
+
+    class Heap{
+	//大顶堆
+	public:
+
+    Heap(){}
+    Heap(int a): n(a){}
+    Heap(int *a, int n){
+        this->n = n;
+        for(int i = 1; i <= n; i++)
+        {
+            this->pq[i] = a[i];
+        }
+    }
+
+    //插入到最后，然后上浮
+    void insert(int x){
+        pq[++n] = x;
+        swim(n);
+    }
+
+    //将最后一个元素放到第一个位置，下沉
+    int delMax(){
+        int val = pq[1];
+        pq[1] = pq[n--];
+        sink(1);
+        return val;
+    }
+
+    //上浮操作，上浮第k个元素，层层比较k, k/2的大小关系
+    void swim(int k){
+        while(k > 1 && pq[k/2] < pq[k]){
+            swap(pq[k], pq[k/2]);
+            k = k/2;
+        }
+    }
+    //下沉操作，下沉第k个元素
+    //大顶堆，与两个孩子节点中较大的那个比较，是否交换
+    //小顶堆，与两个孩子中较小的比较，是否交换
+    void sink(int k){
+        while(k*2 <= n){
+            int j = 2*k;
+            if(j+1 <= n && pq[j] < pq[j+1]) j = j+1;
+            if(pq[j] < pq[k])break;
+            swap(pq[j], pq[k]);
+            k = j;
+        }
+    }
+
+    //建堆，可以一直执行插入操作
+    //或者，对于非叶子的每个节点，执行下沉操作
+    void build_heap(){
+        for(int k = n/2; k >= 1; k--){
+            sink(k);
+        }
+    }
+
+    //堆排序，先建堆
+    //然后每次讲堆顶放入末尾，末尾元素放到堆顶，堆的size-1，调整堆
+    //调整堆，下沉堆顶
+    void heap_sort(){
+        build_heap();
+        while(n > 1){
+            swap(pq[1], pq[n]);
+            n--;
+            sink(1);
+        }
+    }
+	private:
+    	const static int maxn = 10;
+    	//n is the heap size
+    	int n;
+    	//a[0] is not used
+    	int pq[maxn];
+	};
+
+
+
 	7.radix sort
 
 ###分析各算法的时间复杂度，空间复杂度， 排序的稳定性
